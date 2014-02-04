@@ -131,6 +131,7 @@ app.get('/tee-text', function(req, res) {
 				{
 					console.log(error);
 					console.log(response.statusCode);
+					req.session = null;
 					sendMessage('Sorry. Something blew up.');
 				}
 
