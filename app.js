@@ -76,7 +76,7 @@ app.get('/tee-text', function(req, res) {
 		else
 		{
 			req.session.size = size;
-			sendMessage('What color tshirt? Options: Red, Blue, Yellow, Purple, Green');
+			sendMessage('What color tshirt? Options: red, blue, yellow, purple, green');
 		}
 
 	}
@@ -92,6 +92,14 @@ app.get('/tee-text', function(req, res) {
 			sendMessage('Invalid color. Try again.');
 		else
 		{
+			// Color fix
+			if(color == 'Blue')
+				color = 'Royal Blue';
+			else if(color == 'Yellow')
+				color = 'Yellow Haze';
+			else if(color == 'Green')
+				color = 'Turf Green';
+
 			req.session.color = color;
 			sendMessage('How many tshirts do you want?');
 		}
@@ -112,7 +120,7 @@ app.get('/tee-text', function(req, res) {
 			console.log('color' + req.session.color);
 			console.log('size' + req.session.size);
 			console.log('quantity' + quantity);
-			var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
+			var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=Red&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
 			console.log(url);
 			request(url, function (error, response, body) {
 
