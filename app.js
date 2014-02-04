@@ -108,7 +108,7 @@ app.get('/tee-text', function(req, res) {
 			sendMessage('Invalid quantity. Try again.');
 		else
 		{
-			var url = 'https://www.shirts.io/api/v1/quote/' + '?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + req.session.quantity + '&print[front][color_count]=1';
+			var url = 'https://www.shirts.io/api/v1/quote/' + '?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + req.query.Body + '&print[front][color_count]=1';
 			request(url, function (error, response, body) {
 
 				if (!error && response.statusCode == 200) {
