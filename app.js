@@ -110,6 +110,7 @@ app.get('/tee-text', function(req, res) {
 				if (!error && response.statusCode == 200) {
 					var imageName = makeImage();
 					body = JSON.parse(body);
+					req.session.destroy();
 					sendMessage('Your total comes to $' + body.result.total + ' at $' + body.result.price_per_shirt + ' per shirt. | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + imageName);
 				}
 				else
