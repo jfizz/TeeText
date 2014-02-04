@@ -40,10 +40,12 @@ if ('development' == app.get('env')) {
 
 app.get('/tee-text', function(req, res) {
 
+	// Options	
 	var colors = ['Black', 'Blue', 'Red', 'Yellow', 'Purple'];
 	var sizes = ['sml', 'med', 'large'];
 	var apiKey = '03ae700441d285b1937cda732868b74180d12fbd';
 
+	// Controller
 	if(!req.session.message)
 		askSize();
 	else if(!req.session.size)
@@ -53,6 +55,8 @@ app.get('/tee-text', function(req, res) {
 	else
 		sendQuote();
 
+
+	// Routes
 	function askSize() {
 
 		req.session.message = req.query.Body;
@@ -114,13 +118,18 @@ app.get('/tee-text', function(req, res) {
 					sendMessage('Your total comes to $' + body.result.total + ' at $' + body.result.price_per_shirt + ' per shirt. | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + imageName);
 				}
 				else
+				{
+					console.log(error);
+					console.log(response);
 					sendMessage('Sorry. Something blew up.');
+				}
 
 			});
 		}
 
 	}
 
+	// Helpers
 	function sendMessage(message) {
 
 		var resp = new twilio.TwimlResponse();
