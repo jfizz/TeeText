@@ -124,6 +124,7 @@ app.get('/tee-text', function(req, res) {
 				else
 				{
 					console.log(error);
+					console.log(response.statusCode);
 					sendMessage('Sorry. Something blew up.');
 				}
 
