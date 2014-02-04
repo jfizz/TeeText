@@ -32,7 +32,7 @@ if ('development' == app.get('env')) {
 
 }
 
-app.post('/tee-text', function(req, res) {
+app.get('/tee-text', function(req, res) {
 
 	var imageName = req.query.From + '.png';
 	var out = fs.createWriteStream(__dirname + '/public/images/' + imageName);
