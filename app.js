@@ -108,9 +108,10 @@ app.get('/tee-text', function(req, res) {
 
 	function sendQuote() {
 
-		req.session.color = 'Royal+Blue';
+		req.session = null;
+		res.end();
 
-		var quantity = req.query.Body;
+		/*var quantity = req.query.Body;
 		quantity = parseInt(quantity, 10);
 
 		// Check and see if quantity is a number
@@ -135,7 +136,7 @@ app.get('/tee-text', function(req, res) {
 				}
 
 			});
-		}
+		}*/
 
 	}
 
