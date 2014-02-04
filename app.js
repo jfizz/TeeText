@@ -108,7 +108,8 @@ app.get('/tee-text', function(req, res) {
 			sendMessage('Invalid quantity. Try again.');
 		else
 		{
-			var url = 'https://www.shirts.io/api/v1/quote/' + '?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + req.query.Body + '&print[front][color_count]=1';
+			console.log('error 1');
+			var url = 'https://www.shirts.io/api/v1/quote/' + '?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
 			request(url, function (error, response, body) {
 
 				if (!error && response.statusCode == 200) {
@@ -168,7 +169,9 @@ app.get('/tee-text', function(req, res) {
 
 		// Convert canvas to .png
 		var imageName = req.query.From + '.png';
+		console.log('error 2');
 		var out = fs.createWriteStream(__dirname + '/public/images/' + imageName);
+		console.log('error 3');
 		var stream = canvas.pngStream();
 
 		stream.on('data', function(chunk){
