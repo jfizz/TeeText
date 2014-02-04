@@ -41,7 +41,7 @@ if ('development' == app.get('env')) {
 app.get('/tee-text', function(req, res) {
 
 	// Options	
-	var colors = ['Black', 'Blue', 'Red', 'Yellow', 'Purple'];
+	var colors = ['Green', 'Blue', 'Red', 'Yellow', 'Purple'];
 	var sizes = ['sml', 'med', 'large'];
 	var apiKey = '03ae700441d285b1937cda732868b74180d12fbd';
 
@@ -94,11 +94,11 @@ app.get('/tee-text', function(req, res) {
 		{
 			// Color fix
 			if(color == 'Blue')
-				color = 'Royal Blue';
+				color = 'Royal+Blue';
 			else if(color == 'Yellow')
-				color = 'Yellow Haze';
+				color = 'Yellow+Haze';
 			else if(color == 'Green')
-				color = 'Turf Green';
+				color = 'Turf+Green';
 
 			req.session.color = color;
 			sendMessage('How many tshirts do you want?');
@@ -149,9 +149,6 @@ app.get('/tee-text', function(req, res) {
 
 	function makeImage() {
 
-		var color = req.session.color;
-		var message = req.session.message;
-
 		// Canvas
 		var canvas = new Canvas(546, 596);
 		var ctx = canvas.getContext('2d');
@@ -165,6 +162,7 @@ app.get('/tee-text', function(req, res) {
 			ctx.drawImage(img,0,0);
 
 			// T-shirt text
+			var message = req.session.message;
 			ctx.font = '30px Impact';
 			var te = ctx.measureText(message);
 			ctx.fillStyle = '#ffffff';
@@ -172,7 +170,7 @@ app.get('/tee-text', function(req, res) {
 
 		};
 
-		img.src = __dirname + '/public/images/' + color + '.png';
+		img.src = __dirname + '/public/images/' + req.session.color + '.png';
 
 		// Convert canvas to .png
 		var imageName = req.query.From + '.png';
