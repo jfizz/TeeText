@@ -60,8 +60,7 @@ app.get('/tee-text', function(req, res) {
 
 	stream.on('end', function(){
 
-		res.end();
-		/*client.messages.create({
+		client.messages.create({
 
 			body: "Quote: $15 | Check out the design http://glacial-headland-8432.herokuapp.com/images/" + imageName,
 			to: req.query.From,
@@ -76,9 +75,10 @@ app.get('/tee-text', function(req, res) {
 			{
 				res.type('text/xml');
 				res.send(message);
+				res.end();
 			}
 
-		});*/
+		});
 
 	});
 
