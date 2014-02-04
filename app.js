@@ -26,16 +26,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // development only
 if ('development' == app.get('env')) {
 
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 
 }
 
 /**
  * Receives GET request from Twilio with a message.
- * Creates an image with the message text on it.
- * Sends back a Twiml Response with a quote and a link to image.
- *
- * request properties -> https://www.twilio.com/docs/api/rest/message
+ * Determines which route to use based off values stored in a session cookie.
  */
 
 app.get('/tee-text', function(req, res) {
@@ -108,10 +105,7 @@ app.get('/tee-text', function(req, res) {
 
 	function sendQuote() {
 
-		req.session = null;
-		res.end();
-
-		/*var quantity = req.query.Body;
+		var quantity = req.query.Body;
 		quantity = parseInt(quantity, 10);
 
 		// Check and see if quantity is a number
@@ -124,8 +118,13 @@ app.get('/tee-text', function(req, res) {
 
 				if (!error && response.statusCode == 200) {
 					makeImage();
+
+					// Parse JSON
 					body = JSON.parse(body);
+
+					// Reset session
 					req.session = null;
+
 					sendMessage('Your total comes to $' + body.result.total + ' | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + req.query.From + '.png');
 				}
 				else
@@ -136,7 +135,7 @@ app.get('/tee-text', function(req, res) {
 				}
 
 			});
-		}*/
+		}
 
 	}
 
@@ -199,61 +198,6 @@ app.get('/tee-text', function(req, res) {
 		return typeof n === 'number' && n % 1 === 0;
 
 	}
-
-	/*var colors = ['black', 'blue', 'red', 'yellow', 'purple'];
-	var sizes = ['sml', 'med', 'large'];
-
-	var message = req.query.Body;
-
-	if(message.substring(0, 6) == "message")
-	{
-
-	}
-
-	// Canvas
-	var canvas = new Canvas(546, 596);
-	var ctx = canvas.getContext('2d');
-
-	// T-shirt image template
-	var Image = Canvas.Image;
-	var img = new Image();
-
-	img.onload = function(){
-
-		ctx.drawImage(img,0,0);
-
-		// T-shirt text
-		ctx.font = '30px Impact';
-		var te = ctx.measureText(req.query.Body);
-		ctx.fillStyle = '#ffffff';
-		ctx.fillText(req.query.Body, 273 - 0.5 * te.width, 198);
-
-	};
-
-	var templateNumber = Math.floor((Math.random()*5)+1); // 5 different colored tshirt templates
-	img.src = __dirname + '/public/images/' + templateNumber + '.png';
-
-	// Convert canvas to .png
-	var imageName = req.query.From + '.png';
-	var out = fs.createWriteStream(__dirname + '/public/images/' + imageName);
-	var stream = canvas.pngStream();
-
-	stream.on('data', function(chunk){
-
-		out.write(chunk);
-
-	});
-
-	stream.on('end', function(){
-
-		var price = Math.floor((Math.random()*30)+1);
-
-		var resp = new twilio.TwimlResponse();
-		resp.message('Quote: $' + price + ' | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + imageName);
-		res.type('text/xml');
-		res.send(resp.toString());
-
-	});*/
 
 });
 
