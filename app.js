@@ -8,8 +8,9 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var twilio = require('twilio');
+var client = require('twilio')('AC8071f4e79c9ec1e28ac712b696634652', 'e13e174fbee885c77d5a039a1d372356');
 var Canvas = require('canvas');
+var fs = require('fs');
 
 var app = express();
 
@@ -31,28 +32,55 @@ if ('development' == app.get('env')) {
 
 app.get('/tee-text', function(req, res) {
 
-	/*var resp = new twilio.TwimlResponse();
-	resp.message('Your message said ' + req.query.Body);
-	res.type('text/xml');
-	res.send(resp.toString());*/
+	var imageName = req.query.From + '.png';
+	var out = fs.createWriteStream(__dirname + '/public/images/' + imageName);
 	var Image = Canvas.Image;
 	var canvas = new Canvas(546, 596);
 	var ctx = canvas.getContext('2d');
 
-	ctx.font = '35px Impact';
-	var te = ctx.measureText('Awesome!Again');
+	// T-shirt text
+	ctx.font = '30px Impact';
+	var te = ctx.measureText(req.query.Body);
 	ctx.fillStyle = '#C90E15';
-	ctx.fillText("Awesome!Again", 273 - 0.5 * te.width, 198);
+	ctx.fillText(req.query.Body, 273 - 0.5 * te.width, 198);
 
+	// T-shirt image template
 	var img = new Image();
-
 	img.onload = function(){
 		ctx.drawImage(img,0,0);
 	};
-
 	img.src = __dirname + '/public/images/blank_tshirt.png';
 
-	res.send('<img src="' + canvas.toDataURL() + '" />');
+	// Convert canvas to .png
+	var stream = canvas.pngStream();
+
+	stream.on('data', function(chunk){
+		out.write(chunk);
+	});
+
+	stream.on('end', function(){
+
+		res.end();
+		/*client.messages.create({
+
+			body: "Quote: $15 | Check out the design http://glacial-headland-8432.herokuapp.com/images/" + imageName,
+			to: req.query.From,
+			from: req.query.To
+
+		},
+		function(err, message) {
+
+			if(err)
+				console.log(err);
+			else
+			{
+				res.type('text/xml');
+				res.send(message);
+			}
+
+		});*/
+
+	});
 
 });
 
