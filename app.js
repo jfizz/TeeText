@@ -112,10 +112,10 @@ app.get('/tee-text', function(req, res) {
 			request(url, function (error, response, body) {
 
 				if (!error && response.statusCode == 200) {
-					var imageName = makeImage();
+					makeImage();
 					body = JSON.parse(body);
 					req.session = null;
-					sendMessage('Your total comes to $' + body.result.total + ' at $' + body.result.price_per_shirt + ' per shirt. | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + imageName);
+					sendMessage('Total: $' + body.result.total + ' @ $' + body.result.price_per_shirt + ' per. | Check the design http://glacial-headland-8432.herokuapp.com/images/' + req.query.From + '.png');
 				}
 				else
 				{
@@ -179,7 +179,7 @@ app.get('/tee-text', function(req, res) {
 
 		stream.on('end', function(){
 
-			return imageName;
+			return;
 
 		});
 
