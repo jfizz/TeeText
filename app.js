@@ -31,7 +31,7 @@ if ('development' == app.get('env')) {
 app.get('/tee-text', function(req, res) {
 
 	var resp = new twilio.TwimlResponse();
-	resp.message('This is a test');
+	resp.message('Your message said' + req.params.Body);
 	res.type('text/xml');
 	res.send(resp.toString());
 
