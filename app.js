@@ -110,7 +110,7 @@ app.get('/tee-text', function(req, res) {
 		{
 			console.log('Key' + apiKey);
 			console.log('color' + req.session.color);
-			console.log('size' + size);
+			console.log('size' + req.session.size);
 			console.log('quantity' + quantity);
 			var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
 			request(url, function (error, response, body) {
