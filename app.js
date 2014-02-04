@@ -39,7 +39,7 @@ app.get('/tee-text', function(req, res) {
 
 	// Options	
 	var colors = ['Green', 'Blue', 'Red', 'Yellow', 'Purple'];
-	var sizes = ['sml', 'med', 'large'];
+	var sizes = ['sml', 'med', 'lrg'];
 	var apiKey = '03ae700441d285b1937cda732868b74180d12fbd';
 
 	// Controller
@@ -58,7 +58,7 @@ app.get('/tee-text', function(req, res) {
 
 		req.session.message = req.query.Body;
 
-		sendMessage('What size tshirt? Options: sml, med, large');
+		sendMessage('What size tshirt? Options: sml, med, lrg');
 
 	}
 
@@ -114,7 +114,6 @@ app.get('/tee-text', function(req, res) {
 		else
 		{
 			var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
-			console.log(url);
 			request(url, function (error, response, body) {
 
 				if (!error && response.statusCode == 200) {
