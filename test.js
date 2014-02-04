@@ -1,12 +1,12 @@
-var n = 'asdf';
+var request = require('request');
 
-n = parseInt(n, 10);
+var apiKey = '03ae700441d285b1937cda732868b74180d12fbd';
 
-console.log(n);
-console.log(isInt(n));
+var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=Red&garment[0][sizes][med]=30&print[front][color_count]=1';
+request(url, function (error, response, body) {
 
-function isInt(n) {
-
-	return typeof n === 'number' && n % 1 === 0;
-
-}
+	if (!error && response.statusCode == 200) {
+		body = JSON.parse(body);
+		console.log(body.result.total);
+	}
+});

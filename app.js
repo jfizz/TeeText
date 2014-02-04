@@ -108,8 +108,11 @@ app.get('/tee-text', function(req, res) {
 			sendMessage('Invalid quantity. Try again.');
 		else
 		{
-			console.log('error 1');
-			var url = 'https://www.shirts.io/api/v1/quote/' + '?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
+			console.log('Key' + apiKey);
+			console.log('color' + req.session.color);
+			console.log('size' + size);
+			console.log('quantity' + quantity);
+			var url = 'https://www.shirts.io/api/v1/quote/?api_key=' + apiKey + '&garment[0][product_id]=1&garment[0][color]=' + req.session.color + '&garment[0][sizes][' + req.session.size + ']=' + quantity + '&print[front][color_count]=1';
 			request(url, function (error, response, body) {
 
 				if (!error && response.statusCode == 200) {
@@ -121,7 +124,6 @@ app.get('/tee-text', function(req, res) {
 				else
 				{
 					console.log(error);
-					console.log(response);
 					sendMessage('Sorry. Something blew up.');
 				}
 
