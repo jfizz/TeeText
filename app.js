@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var twilio = require('twilio');
 var client = require('twilio')('AC8071f4e79c9ec1e28ac712b696634652', 'e13e174fbee885c77d5a039a1d372356');
 var Canvas = require('canvas');
 var fs = require('fs');
@@ -60,25 +61,10 @@ app.get('/tee-text', function(req, res) {
 
 	stream.on('end', function(){
 
-		client.messages.create({
-
-			body: "Quote: $15 | Check out the design http://glacial-headland-8432.herokuapp.com/images/" + imageName,
-			to: req.query.From,
-			from: req.query.To
-
-		},
-		function(err, message) {
-
-			if(err)
-				console.log(err);
-			else
-			{
-				res.type('text/xml');
-				res.send(message);
-				res.end();
-			}
-
-		});
+		var resp = new twilio.TwimlResponse();
+		resp.message('Quote: $15 | Check out the design http://glacial-headland-8432.herokuapp.com/images/' + imageName);
+		res.type('text/xml');
+		res.send(resp.toString());
 
 	});
 
