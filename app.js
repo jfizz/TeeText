@@ -40,6 +40,7 @@ app.post('/tee-text', function(req, res) {
 	var canvas = new Canvas(546, 596);
 	var ctx = canvas.getContext('2d');
 	var te = ctx.measureText(req.query.Body);
+	var myNumber = "+18126749501";
 
 	// T-shirt text
 	ctx.font = '30px Impact';
@@ -65,7 +66,7 @@ app.post('/tee-text', function(req, res) {
 
 			body: "Quote: $15 | Check out the design http://glacial-headland-8432.herokuapp.com/images/" + imageName,
 			to: req.query.From,
-			from: req.query.To
+			from: myNumber
 
 		},
 		function(err, message) {
