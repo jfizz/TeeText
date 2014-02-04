@@ -108,6 +108,8 @@ app.get('/tee-text', function(req, res) {
 
 	function sendQuote() {
 
+		req.session.color = 'Royal+Blue';
+
 		var quantity = req.query.Body;
 		quantity = parseInt(quantity, 10);
 
