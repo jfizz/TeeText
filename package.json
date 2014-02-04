@@ -1,0 +1,22 @@
+{
+  "name": "teeText",
+  "version": "0.0.0",
+  "description": "TeeText - Text your t-shirt design, receive a quote within seconds",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jfizz/tee-text"
+  },
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Jordan Scheller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jfizz/tee-text/issues"
+  },
+  "dependencies": {
+    "logfmt": "~0.20.0",
+    "express": "~3.4.8"
+  }
+}
