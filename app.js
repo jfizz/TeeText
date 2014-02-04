@@ -8,7 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-var twilio = require('twilio')('AC8071f4e79c9ec1e28ac712b696634652', 'e13e174fbee885c77d5a039a1d372356');
+var twilio = require('twilio');
 
 var app = express();
 
@@ -28,7 +28,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.post('/tee-text', function(req, res) {
+app.get('/tee-text', function(req, res) {
 
 	var resp = new twilio.TwimlResponse();
 	resp.message('This is a test');
