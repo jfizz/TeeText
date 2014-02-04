@@ -97,6 +97,7 @@ app.get('/tee-text', function(req, res) {
 	function sendQuote() {
 
 		var quantity = req.query.quantity;
+		quantity = parseInt(quantity, 10);
 
 		// Check and see if quantity is a number
 		if(!isInt(quantity))
